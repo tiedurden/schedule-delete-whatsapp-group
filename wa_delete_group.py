@@ -29,13 +29,10 @@ chrome_options.add_argument("--user-data-dir='path-to-chrome-profile'") # change
 chrome_options.add_argument('--profile-directory=Profile 1')
 # options.add_argument('headless')
 chrome_options.add_argument('no-sandbox')
-#
 
-# input_groupname = input("Which group should be deleted: ")
-# input_member_count = int(input("Number of group members: "))
-# TODO if possible get member_count automatic, count child divs 
-# count i
-# xpath_count_member divs'//*[@id="app"]/div[1]/div[1]/div[2]/div[3]/span/div[1]/span/div[1]/div/section/div[5]/div[4]/div/div[i]/div/div/div[2]/div[2]'
+groupname = input("Which group should be deleted: ")
+member_count = int(input("Number of group members: "))
+delete_date = input("Put in the date on which the group should be deleted in format 'YYYY-MM-DD': ")
 
 
 def delete_group():
@@ -47,11 +44,9 @@ def delete_group():
     #input('Enter anything after scanning QR code')
     sleep(5)
 
-    member_count = 2
-    groupname = "testgruppe_auto2"
+    # member_count = 2
+    # groupname = "testgruppe_auto2"
 
-    # groubmemberi_xpath = "//*[@id="app"]/div/div/div[2]/div[3]/span/div/span/div/div/div[1]/div[5]/div[4]/div/div[INDEX]/div/div/div[2]"
-    # install loop for i group members to kick
 
     # search group
     searchfield = driver.find_element_by_xpath('//*[@id="side"]/div[1]/div/label/div/div[2]')
@@ -69,14 +64,14 @@ def delete_group():
     sleep(3)
 
     # communicate selfdestruction
-    # msg_box = driver.find_element_by_xpath('/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div[2]/div/div[2]')
-    # msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[1]/div/div[2]')
-    # msg_box.send_keys("Selbstzerstoerung in:")
-    # msg_box.send_keys(Keys.RETURN)
-    # for i in range(3, 0, -1):
-    #     sleep(1)
-    #     msg_box.send_keys(i)
-    #     msg_box.send_keys(Keys.RETURN)
+    msg_box = driver.find_element_by_xpath('/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div[2]/div/div[2]')
+    msg_box = driver.find_element_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/div/div[1]/div/div[2]')
+    msg_box.send_keys("This group selfdestructs in:")
+    msg_box.send_keys(Keys.RETURN)
+    for i in range(3, 0, -1):
+        sleep(1)
+        msg_box.send_keys(i)
+        msg_box.send_keys(Keys.RETURN)
 
 
     # go to group menu
@@ -131,7 +126,7 @@ def job_that_executes_once():
 today = datetime.now().strftime('%Y-%m-%d')
 print(today)
 
-if today == "2021-09-12":
+if today == deleted_date:
     print("today is today")
     schedule.every().day.at('19:30').do(job_that_executes_once)
 else:
